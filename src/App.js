@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Title from './components/Title'
+import Timer from './components/Timer'
+import Controller from './components/Controller'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            time: 10
+        }
+    }
+
+    autoReduce = () => {
+        let interval = setInterval(() => {
+            if (this.state.time <= 0) return clearInterval(interval)
+            this.reduceTime()
+        }, 1000);
+    }
+
+    reduceTime = () => {
+        let { time } = this.state
+        this.setState({
+            time: time - 1
+        })
+    }
+
+    resetTimer = () => {
+        this.setState({
+            time: 10
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <Title />
+                <Timer 
+                    time={this.state.time} 
+                    changeUserName={this.changeUserName}
+                />
+                <Controller
+                    autoReduce={this.autoReduce}
+                    resetTimer={this.resetTimer}
+                />
+            </div>
+        )
+    }
 }
-
-export default App;
