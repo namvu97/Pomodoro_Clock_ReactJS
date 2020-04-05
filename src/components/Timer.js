@@ -1,31 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class Timer extends Component {
-
-    // Mounting
-    componentWillMount() {
-        console.log('componentWillMount')
-    }
-    componentDidMount() {
-        console.log('componentDidMount')
-    }
-
-    // Updating
-    shouldComponentUpdate() {
-        console.log('shouldComponentUpdate')
-        return true
-    }
-
-    componentWillUpdate() {
-        console.log('componentWillUpdate')
-    }
-
-    componentDidUpdate() {
-        console.log('componentDidUpdate')
-    }
-
+class Timer extends Component {
     render() {
-        console.log('render')
         return (
             <div className="main">
                 <div className="circle-1">
@@ -40,3 +17,11 @@ export default class Timer extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        time: state.time,
+    }
+}
+
+export default connect(mapStateToProps)(Timer)
